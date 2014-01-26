@@ -1,7 +1,7 @@
 ---
 Name: svn-plugin
 Cartridge-Short-Name: SVN_PLUGIN
-Source-Url: https://github.com/mmcgrath-openshift/openshift-cartridge-svn.git
+Source-Url: https://github.com/mmcgrath-openshift/openshift-svn-cartridge.git
 Display-Name: SVN Plugin Cartridge 1.8
 Description: An SVN cartridge to allow for using SVN source code
 Version: '1.8'
