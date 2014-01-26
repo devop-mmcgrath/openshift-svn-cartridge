@@ -8,15 +8,33 @@ case "$1" in
     version="$2"
 esac
 
-mkdir -p $OPENSHIFT_DATA_DIR/svn/
+export OPENSHIFT_SVN_DIR="$OPENSHIFT_DATA_DIR/svn/"
+
+mkdir -p $OPENSHIFT_SVN_DIR
 
 export PATH="$PATH:$OPENSHIFT_SVN_DIR/usr/bin"
 
-[ -d $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME ]  || svnadmin create $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME
+if [ -d $OPENSHIFT_SVN_DIR$OPENSHIFT_APP_NAME ]
+then
+    echo "SVN Repo $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME already exists!"
+else
+    echo
+    echo "SVN Repo not found, creating at $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME"
+    echo
+    svnadmin create $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME
+
+    echo
+    echo "Importing svn repo from what was in app-root"
+    echo
+    svn import -m 'initial import from existing openshift repo' $OPENSHIFT_REPO_DIR file:///$OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME
+fi
 
 # svn import
-#ln -s ~/git/kitchensink.git/hooks/pre-receive $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME/hooks/pre-commit
-#ln -s ~/git/kitchensink.git/hooks/post-receive $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME/hooks/post-lock
+#ln -s ~/git/kitchensink.git/hooks/pre-receive $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME/hooks/pre-commit
+#ln -s ~/git/kitchensink.git/hooks/post-receive $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME/hooks/post-lock
 
+echo
+echo "To use SVN repo run:"
+echo "    svn co svn+ssh://$OPENSHIFT_GEAR_UUID@$OPENSHIFT_APP_DNS/$OPENSHIFT_APP_NAME"
 
 exit 0
