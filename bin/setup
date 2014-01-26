@@ -12,7 +12,8 @@ mkdir -p $OPENSHIFT_DATA_DIR/svn/
 
 export PATH="$PATH:$OPENSHIFT_SVN_DIR/usr/bin"
 
-svnadmin create $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME
+[ -d $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME ]  || svnadmin create $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME
+
 # svn import
 #ln -s ~/git/kitchensink.git/hooks/pre-receive $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME/hooks/pre-commit
 #ln -s ~/git/kitchensink.git/hooks/post-receive $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME/hooks/post-lock
