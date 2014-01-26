@@ -10,7 +10,7 @@ esac
 
 mkdir -p $OPENSHIFT_DATA_DIR/svn/
 
-export PATH="$PATH:$OPENSHIFT_SVN_DIR"
+export PATH="$PATH:$OPENSHIFT_SVN_DIR/usr/bin"
 
 svnadmin create $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME
 # svn import
