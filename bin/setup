@@ -8,4 +8,9 @@ case "$1" in
     version="$2"
 esac
 
+mkdir -p $OPENSHIFT_DATA_DIR/svn/
+svnadmin create $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME
+ln -s ~/git/kitchensink.git/hooks/pre-receive $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME/hooks/pre-commit
+ln -s ~/git/kitchensink.git/hooks/post-receive $OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME/hooks/post-lock
+
 exit 0

@@ -1,0 +1,2 @@
+#!/bin/sh
+exec svnserve.bin -r ~/app-root/data/svn/ "$@"
