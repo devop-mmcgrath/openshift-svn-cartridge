@@ -12,7 +12,7 @@ export OPENSHIFT_SVN_DIR="$OPENSHIFT_DATA_DIR/svn/"
 
 mkdir -p $OPENSHIFT_SVN_DIR
 
-export PATH="$PATH:$OPENSHIFT_SVN_DIR/usr/bin"
+export PATH="$PATH:$OPENSHIFT_HOMEDIR/svn-plugin/usr/bin"
 
 if [ -d $OPENSHIFT_SVN_DIR$OPENSHIFT_APP_NAME ]
 then
