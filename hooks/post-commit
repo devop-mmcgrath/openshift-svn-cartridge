@@ -4,3 +4,8 @@ rm -rf $OPENSHIFT_REPO_DIR
 mkdir -p $OPENSHIFT_REPO_DIR
 svn co file:///$OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME $OPENSHIFT_REPO_DIR
 rm -rf $OPENSHIFT_REPO_DIR/.svn
+
+$OPENSHIFT_PRIMARY_CARTRIDGE_DIR/bin/control build
+
+gear prepare
+gear gear activate `gear deployments | awk -F' - ' '/NEVER/{ print $2 }'`
