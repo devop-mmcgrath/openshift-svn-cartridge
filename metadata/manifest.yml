@@ -8,9 +8,9 @@ Version: '1.8'
 Versions:
 - '1.8'
 License: ASL 2.0
-Vendor: Red Hat
+Vendor: Mike McGrath Community
 Cartridge-Version: 0.0.1
-Cartridge-Vendor: redhat
+Cartridge-Vendor: mmcgrath-community
 Categories:
 - embedded
 - build
