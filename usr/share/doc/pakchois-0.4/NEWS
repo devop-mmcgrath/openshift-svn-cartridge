@@ -1,0 +1,14 @@
+Changes in release 0.4:
+* Fix Name in pakchois.pc.
+* Fix a global symbol which should have been static.
+
+Changes in release 0.3:
+* Handle malloc failure gracefully throughout.
+* Support concurrent access to multiple modules of same name.
+* Add pakchois_error().
+
+Changes in release 0.2:
+* Fix module loading if module path includes ${libdir}
+
+Changes in release 0.1:
+* Initial release.

@@ -1,0 +1,29 @@
+#!/bin/bash -e
+
+# svn cartridge for testing and verifying node platform code. This is
+# not an example of how to write a well-formed cartridge.
+
+case "$1" in
+  -v|--version)
+    version="$2"
+esac
+
+mkdir -p $SVN_STATE
+touch $SVN_STATE/install_called
+
+function error_exit {
+  echo -e "$1\nexit $2" >$SVN_STATE/install_failure
+  echo -e $1 1>&2
+  exit $2
+}
+
+if [[ -n "$version" ]]; then
+  echo "Creating version marker for $version"
+  echo "$version" > $SVN_STATE/install_version
+else
+  echo "Skipping version creation marker."
+fi
+
+touch $SVN_STATE/install_succeed
+
+exit 0
