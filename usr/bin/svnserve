@@ -1,2 +1,4 @@
 #!/bin/bash
+# Fixes a bug with scl carts
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$OPENSHIFT_SVN_DIR/usr/lib64"
 exec svnserve.bin -r ~/app-root/data/svn/ "$@"

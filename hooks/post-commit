@@ -2,6 +2,9 @@
 # This is to pick up needed env vars
 source /usr/bin/rhcsh 2> /dev/null
 
+# Fixes a bug with scl carts
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$OPENSHIFT_SVN_DIR/usr/lib64"
+
 rm -rf $OPENSHIFT_REPO_DIR
 mkdir -p $OPENSHIFT_REPO_DIR
 svn co file:///$OPENSHIFT_DATA_DIR/svn/$OPENSHIFT_APP_NAME $OPENSHIFT_REPO_DIR
