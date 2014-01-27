@@ -16,16 +16,16 @@ export PATH="$PATH:$OPENSHIFT_HOMEDIR/svn-plugin/usr/bin"
 
 if [ -d $OPENSHIFT_SVN_DIR$OPENSHIFT_APP_NAME ]
 then
-    echo "SVN Repo $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME already exists!"
+    client_result "SVN Repo $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME already exists!"
 else
-    echo
-    echo "SVN Repo not found, creating at $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME"
-    echo
+    client_result ''
+    client_result "SVN Repo not found, creating at $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME"
+    client_result ''
     svnadmin create $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME
 
-    echo
-    echo "Importing svn repo from what was in app-root"
-    echo
+    client_result ''
+    client_result "Importing svn repo from what was in app-root"
+    client_result ''
     svn import -m 'initial import from existing openshift repo' $OPENSHIFT_REPO_DIR file:///$OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME
 fi
 
@@ -33,8 +33,9 @@ fi
 #ln -s ~/git/kitchensink.git/hooks/pre-receive $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME/hooks/pre-commit
 #ln -s ~/git/kitchensink.git/hooks/post-receive $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME/hooks/post-lock
 
-echo
-echo "To use SVN repo run:"
-echo "    svn co svn+ssh://$OPENSHIFT_GEAR_UUID@$OPENSHIFT_APP_DNS/$OPENSHIFT_APP_NAME"
+client_result "To use SVN repo run:"
+client_result "    svn co svn+ssh://$OPENSHIFT_GEAR_UUID@$OPENSHIFT_APP_DNS/$OPENSHIFT_APP_NAME"
+
+cart_props "connection_url=svn+ssh://$OPENSHIFT_GEAR_UUID@$OPENSHIFT_APP_DNS/$OPENSHIFT_APP_NAME"
 
 exit 0
