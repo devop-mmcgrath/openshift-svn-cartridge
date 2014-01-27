@@ -8,29 +8,37 @@ This is a community supported cartridge looking for additional maintainers, let 
 
 Create an app:
 
-  rhc app create -a svnrails -t ruby-1.9
+---
+rhc app create -a svnrails -t ruby-1.9
+---
 
 Add SVN:
 
-  rhc cartridge add -a svnrails https://raw.github.com/mmcgrath-openshift/openshift-svn-cartridge/master/metadata/manifest.yml
+---
+rhc cartridge add -a svnrails https://raw.github.com/mmcgrath-openshift/openshift-svn-cartridge/master/metadata/manifest.yml
+---
 
 Follow the directions to clone new svn repo and remove your git repo (Note, you can't sanely use both svn and git together)
 
-  rm -rf svnrails
-  svn co svn+ssh://52e5c7955973ca731a00001c@svnrails-mmcgrath.rhcloud.com/svnrails
+---
+rm -rf svnrails
+svn co svn+ssh://52e5c7955973ca731a00001c@svnrails-mmcgrath.rhcloud.com/svnrails
+---
 
 Get some sourcecode and populate your repo!  (In this case rails)
-
-  wget -O /tmp/master.zip https://github.com/openshift/rails-example/archive/master.zip
-  unzip -d /tmp/master /tmp/master.zip
-  rsync -av /tmp/master/rails-example-master/ ./svnrails/
-  rm -rf ./svnrails/.git/
-  cd svnrails
-  svn add * .openshift/
-
+---
+wget -O /tmp/master.zip https://github.com/openshift/rails-example/archive/master.zip
+unzip -d /tmp/master /tmp/master.zip
+rsync -av /tmp/master/rails-example-master/ ./svnrails/
+rm -rf ./svnrails/.git/
+cd svnrails
+svn add * .openshift/
+---
 Commit and push.  Note this will build in the background.  It takes some time.
 
-  svn commit -m "initial svn push"
+---
+svn commit -m "initial svn push"
+---
 
 # TODO
 * Get build output, right now svn squashes it
