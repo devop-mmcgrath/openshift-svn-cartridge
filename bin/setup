@@ -10,35 +10,31 @@ case "$1" in
     version="$2"
 esac
 
-export OPENSHIFT_SVN_DIR="$OPENSHIFT_DATA_DIR/svn/"
+export OPENSHIFT_SVN_REPO_DIR="$OPENSHIFT_DATA_DIR/svn/"
 
-mkdir -p $OPENSHIFT_SVN_DIR
+mkdir -p $OPENSHIFT_SVN_REPO_DIR
 
 export PATH="$PATH:$OPENSHIFT_HOMEDIR/svn-plugin/usr/bin"
 
-if [ -d $OPENSHIFT_SVN_DIR$OPENSHIFT_APP_NAME ]
+if [ -d $OPENSHIFT_SVN_REPO_DIR/$OPENSHIFT_APP_NAME ]
 then
-    client_result "SVN Repo $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME already exists!"
+    client_result "SVN Repo $OPENSHIFT_SVN_REPO_DIR/$OPENSHIFT_APP_NAME already exists!"
 else
     client_result ''
-    client_result "SVN Repo not found, creating at $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME"
+    client_result "SVN Repo not found, creating at $OPENSHIFT_SVN_REPO_DIR/$OPENSHIFT_APP_NAME"
     client_result ''
-    svnadmin create $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME
+    svnadmin create $OPENSHIFT_SVN_REPO_DIR/$OPENSHIFT_APP_NAME
 
     client_result "Importing svn repo from what was in $OPENSHIFT_REPO_DIR"
     client_result ''
-    svn import -m 'initial import from existing openshift repo' $OPENSHIFT_REPO_DIR file:///$OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME
+    svn import -m 'initial import from existing openshift repo' $OPENSHIFT_REPO_DIR file:///$OPENSHIFT_SVN_REPO_DIR/$OPENSHIFT_APP_NAME
 
-    cp $OPENSHIFT_SVN_DIR/hooks/post-commit $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME/hooks
+    cp $OPENSHIFT_SVN_DIR/hooks/post-commit $OPENSHIFT_SVN_REPO_DIR/$OPENSHIFT_APP_NAME/hooks
 fi
-
-# svn import
-#ln -s ~/git/kitchensink.git/hooks/pre-receive $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME/hooks/pre-commit
-#ln -s ~/git/kitchensink.git/hooks/post-receive $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME/hooks/post-lock
 
 client_result "To use SVN repo run:"
 client_result "    svn co svn+ssh://$OPENSHIFT_GEAR_UUID@$OPENSHIFT_APP_DNS/$OPENSHIFT_APP_NAME"
-client_result ""
+client_result ''
 
 cart_props "connection_url=svn+ssh://$OPENSHIFT_GEAR_UUID@$OPENSHIFT_APP_DNS/$OPENSHIFT_APP_NAME"
 
