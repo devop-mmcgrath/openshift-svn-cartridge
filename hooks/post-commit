@@ -1,4 +1,6 @@
 #!/bin/bash
+# This is to pick up needed env vars
+source /usr/bin/rhcsh 2> /dev/null
 
 rm -rf $OPENSHIFT_REPO_DIR
 mkdir -p $OPENSHIFT_REPO_DIR
