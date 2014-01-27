@@ -3,6 +3,8 @@
 # svn cartridge for testing and verifying node platform code. This is
 # not an example of how to write a well-formed cartridge.
 
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
 case "$1" in
   -v|--version)
     version="$2"
