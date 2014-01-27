@@ -25,12 +25,11 @@ else
     client_result ''
     svnadmin create $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME
 
-    client_result ''
-    client_result "Importing svn repo from what was in app-root"
+    client_result "Importing svn repo from what was in $OPENSHIFT_REPO_DIR"
     client_result ''
     svn import -m 'initial import from existing openshift repo' $OPENSHIFT_REPO_DIR file:///$OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME
 
-   cp $OPENSHIFT_SVN_DIR/hooks/post-commit $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME/hooks
+    cp $OPENSHIFT_SVN_DIR/hooks/post-commit $OPENSHIFT_SVN_DIR/$OPENSHIFT_APP_NAME/hooks
 fi
 
 # svn import
@@ -39,6 +38,7 @@ fi
 
 client_result "To use SVN repo run:"
 client_result "    svn co svn+ssh://$OPENSHIFT_GEAR_UUID@$OPENSHIFT_APP_DNS/$OPENSHIFT_APP_NAME"
+client_result ""
 
 cart_props "connection_url=svn+ssh://$OPENSHIFT_GEAR_UUID@$OPENSHIFT_APP_DNS/$OPENSHIFT_APP_NAME"
 
